@@ -8,6 +8,7 @@ from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_openai import ChatOpenAI
 from langchain_ollama import ChatOllama
 from tavily import TavilyClient
+from langchain_community.tools.tavily_search import TavilySearchResults
 # from langchain import HuggingFaceHub
 
 tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
@@ -38,7 +39,7 @@ llm = ChatOllama(
     temperature=0,
 )
 
-tools = [search_web]
+tools = [TavilySearchResults()] # search_web is for python search instead
 agent = create_agent(
     model=llm,
     tools=tools,
